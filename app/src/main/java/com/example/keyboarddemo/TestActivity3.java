@@ -22,14 +22,14 @@ import com.example.keyboarddemo.utils.SoftInputUtils;
  * SOFT_INPUT_ADJUST_NOTHING
  * 不做任何操作
  */
-public class TestActivity2 extends AppCompatActivity {
+public class TestActivity3 extends AppCompatActivity {
 
     private EditText edtvTest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test2);
+        setContentView(R.layout.activity_test3);
         edtvTest = findViewById(R.id.edtv_test);
     }
 

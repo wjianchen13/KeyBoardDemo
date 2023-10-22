@@ -1,10 +1,13 @@
 package com.example.keyboarddemo;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.keyboarddemo.test4.TestActivity4;
+import com.example.keyboarddemo.test5.TestActivity5;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,10 +26,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * 普通测试软键盘弹出
+     * 测试softInputMode
      */
     public void onTest2(View v) {
         startActivity(new Intent(this, TestActivity2.class));
+    }
+
+    /**
+     * 测试softInputMode
+     */
+    public void onTest3(View v) {
+        startActivity(new Intent(this, TestActivity3.class));
+    }
+
+    /**
+     * EditText顶上去，ImageView保持不动
+     */
+    public void onTest4(View v) {
+        startActivity(new Intent(this, TestActivity4.class));
+    }
+
+    /**
+     * 模拟项目保持视频层不挤压
+     */
+    public void onTest5(View v) {
+        startActivity(new Intent(this, TestActivity5.class));
     }
 
 }

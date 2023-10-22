@@ -1,4 +1,4 @@
-package com.example.keyboarddemo;
+package com.example.keyboarddemo.test5;
 
 import android.os.Bundle;
 import android.view.View;
@@ -6,6 +6,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.keyboarddemo.R;
 import com.example.keyboarddemo.utils.SoftInputUtils;
 
 /**
@@ -22,14 +23,14 @@ import com.example.keyboarddemo.utils.SoftInputUtils;
  * SOFT_INPUT_ADJUST_NOTHING
  * 不做任何操作
  */
-public class TestActivity2 extends AppCompatActivity {
+public class TestActivity5 extends AppCompatActivity {
 
     private EditText edtvTest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test2);
+        setContentView(R.layout.activity_test5);
         edtvTest = findViewById(R.id.edtv_test);
     }
 

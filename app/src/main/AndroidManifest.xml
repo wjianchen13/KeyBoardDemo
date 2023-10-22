@@ -22,8 +22,20 @@
             </intent-filter>
         </activity>
         <activity android:name=".TestActivity1" />
-        <activity android:name=".TestActivity2" />
+        <activity android:name=".TestActivity2"
+            android:windowSoftInputMode="adjustNothing" />
 
+<!--        android:windowSoftInputMode="adjustUnspecified"-->
+<!--        android:windowSoftInputMode="adjustPan"-->
+<!--        android:windowSoftInputMode="adjustResize"-->
+        <activity android:name=".TestActivity3"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity android:name=".test4.TestActivity4"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+
+        <activity android:name=".test5.TestActivity5"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
 
     </application>
 

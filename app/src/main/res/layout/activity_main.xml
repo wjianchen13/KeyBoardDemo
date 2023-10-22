@@ -27,8 +27,40 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:textAllCaps="false"
-        android:text="普通测试软键盘弹出"
+        android:text="测试softInputMode"
         android:onClick="onTest2" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textAllCaps="false"
+        android:text="测试softInputMode"
+        android:onClick="onTest3" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textAllCaps="false"
+        android:text="测试softInputMode"
+        android:onClick="onTest3" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textAllCaps="false"
+        android:text="EditText顶上去，ImageView保持不动"
+        android:onClick="onTest4" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textAllCaps="false"
+        android:text="模拟项目保持视频层不挤压"
+        android:onClick="onTest5" />
 
 
 </LinearLayout>
