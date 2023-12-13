@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.keyboarddemo.test4.TestActivity4;
 import com.example.keyboarddemo.test5.TestActivity5;
+import com.example.keyboarddemo.test6.TestActivity6;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -51,6 +52,13 @@ public class MainActivity extends AppCompatActivity {
      */
     public void onTest5(View v) {
         startActivity(new Intent(this, TestActivity5.class));
+    }
+
+    /**
+     * 模拟项目软键盘弹出消息列表上移
+     */
+    public void onTest6(View v) {
+        startActivity(new Intent(this, TestActivity6.class));
     }
 
 }

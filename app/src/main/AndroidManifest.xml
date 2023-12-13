@@ -37,6 +37,9 @@
         <activity android:name=".test5.TestActivity5"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
 
+        <activity android:name=".test6.TestActivity6"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+
     </application>
 
 </manifest>
