@@ -53,7 +53,7 @@ public class BaseActivity extends AppCompatActivity {
      * 是否设置状态栏黑色字体图标
      */
     protected boolean isStatusBarLightMode() {
-        return false;
+        return true;
     }
 
     protected boolean isNavBarHide(){
@@ -81,6 +81,8 @@ public class BaseActivity extends AppCompatActivity {
             public WindowInsetsCompat onApplyWindowInsets(@NonNull View v, @NonNull WindowInsetsCompat windowInsets) {
                 Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
                 Insets imeInsets = windowInsets.getInsets(WindowInsetsCompat.Type.ime());
+                Insets sInsets = windowInsets.getInsets(WindowInsetsCompat.Type.statusBars());
+                Insets nInsets = windowInsets.getInsets(WindowInsetsCompat.Type.navigationBars());
                 int bottom = Math.max(insets.bottom, imeInsets.bottom);
                 if (needBottomPadding()) {
                     ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams)v.getLayoutParams();
@@ -90,7 +92,8 @@ public class BaseActivity extends AppCompatActivity {
                 if (-bottom != (int)bottomPadding.getValue()) {
                     bottomPadding.postValue(-bottom);
                 }
-                System.out.println("==================> H5 软键盘测试 systemBars bottom: " + insets.bottom + "   imeInsets bottom: " + imeInsets.bottom);
+                System.out.println("==================> H5 软键盘测试 systemBars bottom: " + insets.bottom + "   imeInsets bottom: "
+                        + imeInsets.bottom + "   status bar height: " + sInsets.bottom + "   navigation bar height: " + nInsets.bottom);
 //                imeHeight.postValue(imeInsets.bottom)
                 // Return CONSUMED if you don't want want the window insets to keep passing
                 // down to descendant views.
