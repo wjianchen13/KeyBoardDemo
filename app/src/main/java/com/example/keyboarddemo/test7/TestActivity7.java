@@ -21,6 +21,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.res.Resources;
+import android.graphics.Rect;
+import android.view.ViewGroup;
+
 import com.example.keyboarddemo.BaseActivity;
 import com.example.keyboarddemo.R;
 import com.example.keyboarddemo.test6.MyAdapter;
@@ -54,6 +58,8 @@ public class TestActivity7 extends BaseActivity implements View.OnClickListener,
     private TextView tvInfo;
     private FrameLayout flytGame;
     private WebView webView;
+    private android.view.ViewTreeObserver.OnGlobalLayoutListener globalLayoutListener;
+    private boolean isSoftInputShowing = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,6 +171,38 @@ public class TestActivity7 extends BaseActivity implements View.OnClickListener,
             settings.setTextZoom(100);
             settings.setUseWideViewPort(true);
             webView.setBackgroundColor(Color.parseColor("#00000000"));
+            
+            // 添加JavaScript接口，用于H5页面通知Android端软键盘状态
+            webView.addJavascriptInterface(new Object() {
+                @android.webkit.JavascriptInterface
+                public void onInputFocus() {
+                    // H5输入框获得焦点，软键盘即将弹出
+                    flytGame.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            // 延迟一点时间，等待软键盘弹出
+                            flytGame.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    adjustForSoftInput();
+                                }
+                            }, 300);
+                        }
+                    });
+                }
+                
+                @android.webkit.JavascriptInterface
+                public void onInputBlur() {
+                    // H5输入框失去焦点，软键盘即将收起
+                    flytGame.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            flytGame.setTranslationY(0);
+                            isSoftInputShowing = false;
+                        }
+                    });
+                }
+            }, "AndroidKeyboard");
 
             webView.setWebViewClient(new WebViewClient() {
 
@@ -190,9 +228,24 @@ public class TestActivity7 extends BaseActivity implements View.OnClickListener,
                 @Override
                 public void onPageFinished(WebView view, String url) {
                     super.onPageFinished(view, url);
+                    // 页面加载完成后，注入JavaScript代码来监听输入框焦点变化
+                    injectKeyboardListener();
+                    // 同时初始化布局监听作为备用
+                    initSoftInputListener();
                 }
             });
             webView.setWebChromeClient(new WebChromeClient() {
+            });
+            
+            // 监听WebView的焦点变化，当H5输入框获得焦点时确保监听器已初始化
+            webView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (hasFocus && globalLayoutListener == null) {
+                        // WebView获得焦点时，确保监听器已初始化
+                        initSoftInputListener();
+                    }
+                }
             });
 
             webView.setHorizontalScrollBarEnabled(true); // 水平不显示
@@ -202,9 +255,199 @@ public class TestActivity7 extends BaseActivity implements View.OnClickListener,
         }
         flytGame.setVisibility(View.VISIBLE);
         webView.loadUrl("https://twww.hayuki.com/s/test/clientTestData");
+        // 延迟初始化软键盘监听，确保布局已经稳定
+        flytGame.post(new Runnable() {
+            @Override
+            public void run() {
+                initSoftInputListener();
+            }
+        });
+    }
+
+    /**
+     * 注入JavaScript代码来监听H5页面输入框的焦点变化
+     */
+    private void injectKeyboardListener() {
+        if (webView == null) {
+            return;
+        }
+        
+        String jsCode = 
+            "(function() {" +
+            "  var inputs = document.querySelectorAll('input, textarea');" +
+            "  for (var i = 0; i < inputs.length; i++) {" +
+            "    inputs[i].addEventListener('focus', function() {" +
+            "      if (window.AndroidKeyboard) {" +
+            "        window.AndroidKeyboard.onInputFocus();" +
+            "      }" +
+            "    });" +
+            "    inputs[i].addEventListener('blur', function() {" +
+            "      if (window.AndroidKeyboard) {" +
+            "        window.AndroidKeyboard.onInputBlur();" +
+            "      }" +
+            "    });" +
+            "  }" +
+            "  // 监听动态添加的输入框" +
+            "  var observer = new MutationObserver(function(mutations) {" +
+            "    var newInputs = document.querySelectorAll('input, textarea');" +
+            "    for (var i = 0; i < newInputs.length; i++) {" +
+            "      if (!newInputs[i].hasAttribute('data-keyboard-listener')) {" +
+            "        newInputs[i].setAttribute('data-keyboard-listener', 'true');" +
+            "        newInputs[i].addEventListener('focus', function() {" +
+            "          if (window.AndroidKeyboard) {" +
+            "            window.AndroidKeyboard.onInputFocus();" +
+            "          }" +
+            "        });" +
+            "        newInputs[i].addEventListener('blur', function() {" +
+            "          if (window.AndroidKeyboard) {" +
+            "            window.AndroidKeyboard.onInputBlur();" +
+            "          }" +
+            "        });" +
+            "      }" +
+            "    }" +
+            "  });" +
+            "  observer.observe(document.body, { childList: true, subtree: true });" +
+            "})();";
+        
+        webView.evaluateJavascript(jsCode, null);
+    }
+    
+    /**
+     * 调整WebView位置以适应软键盘
+     */
+    private void adjustForSoftInput() {
+        if (flytGame == null || flytGame.getVisibility() != View.VISIBLE) {
+            return;
+        }
+        
+        View rootView = getWindow().getDecorView();
+        if (rootView == null) {
+            return;
+        }
+        
+        int rootHeight = rootView.getHeight();
+        Rect rect = new Rect();
+        rootView.getWindowVisibleDisplayFrame(rect);
+        
+        int softInputHeight = rootHeight - rect.bottom;
+        
+        // 获取导航栏高度
+        Resources resources = getResources();
+        int navigationBarHeight = 0;
+        int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            navigationBarHeight = resources.getDimensionPixelSize(resourceId);
+        }
+        
+        // 如果有导航栏，需要减去导航栏高度
+        if (softInputHeight == navigationBarHeight) {
+            softInputHeight = 0;
+        } else if (softInputHeight > navigationBarHeight) {
+            softInputHeight = softInputHeight - navigationBarHeight;
+        }
+        
+        if (softInputHeight > 100) {
+            flytGame.setTranslationY(-softInputHeight);
+            isSoftInputShowing = true;
+            Utils.log("通过JS接口调整，软键盘高度: " + softInputHeight);
+        }
+    }
+    
+    /**
+     * 初始化软键盘监听，用于H5页面输入框弹出软键盘时，让H5页面上移（备用方案）
+     */
+    private void initSoftInputListener() {
+        if (flytGame == null || globalLayoutListener != null) {
+            return;
+        }
+        
+        // 获取DecorView作为根视图
+        final View rootView = getWindow().getDecorView();
+        if (rootView == null) {
+            return;
+        }
+        
+        // 获取导航栏高度
+        Resources resources = getResources();
+        int navigationBarHeight = 0;
+        int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            navigationBarHeight = resources.getDimensionPixelSize(resourceId);
+        }
+        
+        final int finalNavigationBarHeight = navigationBarHeight;
+        
+        // 使用ViewTreeObserver的OnGlobalLayoutListener，这比OnLayoutChangeListener更可靠
+        globalLayoutListener = new android.view.ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                // 只有flytGame可见时才处理
+                if (flytGame == null || flytGame.getVisibility() != View.VISIBLE) {
+                    return;
+                }
+                
+                // 获取根视图高度
+                int rootHeight = rootView.getHeight();
+                
+                // 获取可见区域
+                Rect rect = new Rect();
+                rootView.getWindowVisibleDisplayFrame(rect);
+                
+                // 计算软键盘高度
+                int softInputHeight = rootHeight - rect.bottom;
+                
+                // 判断是否有导航栏
+                boolean hasNavigationBar = (softInputHeight == finalNavigationBarHeight);
+                
+                // 如果有导航栏，需要减去导航栏高度才是真正的软键盘高度
+                if (hasNavigationBar) {
+                    softInputHeight = 0;
+                } else if (softInputHeight > finalNavigationBarHeight) {
+                    softInputHeight = softInputHeight - finalNavigationBarHeight;
+                }
+                
+                // 判断软键盘是否显示（高度大于100像素认为是显示状态）
+                boolean isSoftInputShow = softInputHeight > 100;
+                
+                // 只有当状态改变时才更新
+                if (isSoftInputShow != isSoftInputShowing) {
+                    isSoftInputShowing = isSoftInputShow;
+                    if (isSoftInputShow) {
+                        // 软键盘弹出，将WebView容器向上移动
+                        flytGame.setTranslationY(-softInputHeight);
+                        Utils.log("软键盘弹出，高度: " + softInputHeight + ", 移动距离: " + (-softInputHeight));
+                    } else {
+                        // 软键盘收起，恢复原位置
+                        flytGame.setTranslationY(0);
+                        Utils.log("软键盘收起");
+                    }
+                } else if (isSoftInputShow && softInputHeight > 0) {
+                    // 软键盘高度变化时，更新位置
+                    flytGame.setTranslationY(-softInputHeight);
+                }
+            }
+        };
+        
+        // 在DecorView的ViewTreeObserver上添加监听器
+        rootView.getViewTreeObserver().addOnGlobalLayoutListener(globalLayoutListener);
     }
 
     private void hideGame() {
+        // 隐藏游戏时，重置位置，移除软键盘监听
+        if (flytGame != null) {
+            flytGame.setTranslationY(0);
+        }
+        
+        // 移除全局布局监听器
+        if (globalLayoutListener != null) {
+            View rootView = getWindow().getDecorView();
+            if (rootView != null && rootView.getViewTreeObserver().isAlive()) {
+                rootView.getViewTreeObserver().removeOnGlobalLayoutListener(globalLayoutListener);
+            }
+            globalLayoutListener = null;
+        }
+        
+        isSoftInputShowing = false;
         flytGame.setVisibility(View.GONE);
     }
 
