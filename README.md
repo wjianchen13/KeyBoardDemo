@@ -2,7 +2,10 @@
 
 # 环境
 android-studio_2024.3.2.15
+gradle插件：8.10.1
+gradle版本：gradle-8.11.1-bin
 jdk 21.0.6
+
 
 # 功能
 ## 项目软件盘弹出隐藏，消息列表布局层级修改

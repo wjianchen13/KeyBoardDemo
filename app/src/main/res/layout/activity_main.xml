@@ -62,4 +62,12 @@
         android:text="模拟项目软键盘弹出消息列表上移"
         android:onClick="onTest6" />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textAllCaps="false"
+        android:text="H5页面软键盘弹出H5上移"
+        android:onClick="onTest7" />
+
 </LinearLayout>
