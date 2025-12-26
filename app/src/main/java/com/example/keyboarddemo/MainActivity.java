@@ -10,6 +10,7 @@ import com.example.keyboarddemo.test4.TestActivity4;
 import com.example.keyboarddemo.test5.TestActivity5;
 import com.example.keyboarddemo.test6.TestActivity6;
 import com.example.keyboarddemo.test7.TestActivity7;
+import com.example.keyboarddemo.test8.TestActivity8;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -67,6 +68,13 @@ public class MainActivity extends AppCompatActivity {
      */
     public void onTest7(View v) {
         startActivity(new Intent(this, TestActivity7.class));
+    }
+
+    /**
+     * H5页面软键盘弹出H5上移
+     */
+    public void onTest8(View v) {
+        startActivity(new Intent(this, TestActivity8.class));
     }
 
 
