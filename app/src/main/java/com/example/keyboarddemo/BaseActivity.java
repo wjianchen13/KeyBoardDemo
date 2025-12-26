@@ -15,13 +15,20 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 public class BaseActivity extends AppCompatActivity {
 
+    /**
+     * 用于底部弹窗间距，适配android15使用，值为负值，若需要设置margin可使用绝对值
+     */
+    MutableLiveData bottomPadding = new MutableLiveData(0);
+
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
+    protected void onCreate(Bundle savedInstanceState)  {
         initEdgeToEdge();
-        super.onCreate(savedInstanceState, persistentState);
+        super.onCreate(savedInstanceState);
     }
 
     private void initEdgeToEdge() {
@@ -80,10 +87,10 @@ public class BaseActivity extends AppCompatActivity {
                     p.bottomMargin = bottom;
                     v.setLayoutParams(p);
                 }
-//                if (-bottom != bottomPadding.value) {
-//                    bottomPadding.postValue(-bottom)
-//                }
-//
+                if (-bottom != (int)bottomPadding.getValue()) {
+                    bottomPadding.postValue(-bottom);
+                }
+                System.out.println("==================> H5 软键盘测试 systemBars bottom: " + insets.bottom + "   imeInsets bottom: " + imeInsets.bottom);
 //                imeHeight.postValue(imeInsets.bottom)
                 // Return CONSUMED if you don't want want the window insets to keep passing
                 // down to descendant views.

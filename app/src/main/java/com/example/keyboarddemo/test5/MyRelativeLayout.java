@@ -49,7 +49,7 @@ public class MyRelativeLayout extends RelativeLayout {
         int width = MeasureSpec.getSize(widthSpec);
         int heightMode = MeasureSpec.getMode(heightSpec);
         int height = MeasureSpec.getSize(heightSpec);
-        System.out.println("================> withMode: " + widthMode + "   width: " + width + "   heightMode: " + heightMode + "   height: " + height);
+//        System.out.println("================> withMode: " + widthMode + "   width: " + width + "   heightMode: " + heightMode + "   height: " + height);
 
     }
 

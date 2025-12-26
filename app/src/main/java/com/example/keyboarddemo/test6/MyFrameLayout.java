@@ -32,7 +32,7 @@ public class MyFrameLayout extends FrameLayout {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        Utils.log("MyFrameLayout onSizeChanged w: " + w + "  h: " + h + "  oldw: " + oldw + "  oldh: " + oldh);
+//        Utils.log("MyFrameLayout onSizeChanged w: " + w + "  h: " + h + "  oldw: " + oldw + "  oldh: " + oldh);
         if(mListener != null)
             mListener.onSizeChanged(w, h, oldw, oldh);
     }
