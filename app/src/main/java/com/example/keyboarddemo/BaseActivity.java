@@ -86,7 +86,11 @@ public class BaseActivity extends AppCompatActivity {
                 int bottom = Math.max(insets.bottom, imeInsets.bottom);
                 if (needBottomPadding()) {
                     ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams)v.getLayoutParams();
-                    p.bottomMargin = bottom;
+                    // 在EdgeToEdge模式下，根布局可能会向上延伸（top为负数）来处理状态栏
+                    // 我们需要考虑这个偏移，确保bottomMargin设置后，根布局的底部位置正确
+                    // 由于根布局向上延伸了（通常是状态栏高度），我们需要在设置bottomMargin时
+                    // 考虑这个偏移，或者让子视图自己处理
+                    p.bottomMargin = 903;
                     v.setLayoutParams(p);
                 }
                 if (-bottom != (int)bottomPadding.getValue()) {

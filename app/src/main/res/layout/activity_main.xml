@@ -78,4 +78,36 @@
         android:text="H5页面软键盘弹出H5上移"
         android:onClick="onTest8" />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textAllCaps="false"
+        android:text="adjustPan ConstraintLayout 测试软键盘弹出情况"
+        android:onClick="onTest9" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textAllCaps="false"
+        android:text="adjustResize ConstraintLayout 测试软键盘弹出情况"
+        android:onClick="onTest10" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textAllCaps="false"
+        android:text="adjustPan RelativeLayout 测试软键盘弹出情况"
+        android:onClick="onTest11" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textAllCaps="false"
+        android:text="adjustResize RelativeLayout 测试软键盘弹出情况"
+        android:onClick="onTest12" />
+
 </LinearLayout>

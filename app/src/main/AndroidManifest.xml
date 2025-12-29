@@ -54,6 +54,18 @@
         <activity android:name=".test8.TestActivity8"
             android:windowSoftInputMode="adjustPan" />
 
+        <activity android:name=".test9.TestActivity9"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity android:name=".test10.TestActivity10"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity android:name=".test11.TestActivity11"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity android:name=".test12.TestActivity12"
+            android:windowSoftInputMode="adjustResize" />
+
     </application>
 
 </manifest>
