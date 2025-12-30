@@ -30,7 +30,7 @@ open class BaseWindowInsetConstraintLayout @JvmOverloads constructor(
     private val mQMUIWindowInsetHelper: BaseWindowInsetHelper
 
     init {
-        mQMUIWindowInsetHelper = BaseWindowInsetHelper(this, this)
+        mQMUIWindowInsetHelper = BaseWindowInsetHelper(context, this, this)
     }
 
     @Suppress("deprecation")

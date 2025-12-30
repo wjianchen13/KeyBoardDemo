@@ -31,8 +31,8 @@ import android.widget.ImageView
 import android.widget.ListView
 import androidx.annotation.ColorInt
 import androidx.appcompat.R
-import androidx.core.content.ContextCompat
-import com.gou.android.ckg.base.app.CommonApp
+//import androidx.core.content.ContextCompat
+//import com.gou.android.ckg.base.app.CommonApp
 import java.util.concurrent.atomic.AtomicInteger
 
 /**
@@ -129,10 +129,10 @@ object BaseViewHelper {
 
     @Suppress("deprecation")
     fun setBaseBackgroundKeepingPadding(view: View, backgroundResId: Int) {
-        setBaseBackgroundKeepingPadding(
-            view,
-            ContextCompat.getDrawable(CommonApp.getInstance(), backgroundResId)
-        )
+//        setBaseBackgroundKeepingPadding(
+//            view,
+//            ContextCompat.getDrawable(CommonApp.getInstance(), backgroundResId)
+//        )
     }
 
     /**

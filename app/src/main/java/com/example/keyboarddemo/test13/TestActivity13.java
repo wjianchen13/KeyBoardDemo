@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import com.example.keyboarddemo.R;
 
@@ -75,8 +76,10 @@ public class TestActivity13 extends AppCompatActivity {
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
         setContentView(R.layout.activity_edge_to_edge_custom);
-
+        ViewCompat.requestApplyInsets(findViewById(android.R.id.content));
         // 结果：内容会自动避开状态栏和导航栏
         //      不会被遮挡！
     }
+
+
 }

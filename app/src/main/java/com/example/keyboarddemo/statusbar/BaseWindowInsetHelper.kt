@@ -2,6 +2,7 @@ package com.example.keyboarddemo.statusbar
 
 import android.annotation.SuppressLint
 import android.annotation.TargetApi
+import android.content.Context
 import android.graphics.Rect
 import android.os.Build
 import android.view.Gravity
@@ -10,20 +11,19 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.gou.android.ckg.base.utils.BaseScreenUtils.dipToPx
 import java.lang.ref.WeakReference
 
 /**
  * @author cginechen
  * @date 2017-09-13
  */
-class BaseWindowInsetHelper(viewGroup: ViewGroup?, windowInsetLayout: IBaseWindowInsetLayout?) {
+class BaseWindowInsetHelper(context: Context?, viewGroup: ViewGroup?, windowInsetLayout: IBaseWindowInsetLayout?) {
     private val BASE_KEYBOARD_HEIGHT_BOUNDARY: Int
     private val mBaseWindowInsetLayoutWR: WeakReference<IBaseWindowInsetLayout?>
 
     init {
         mBaseWindowInsetLayoutWR = WeakReference(windowInsetLayout)
-        BASE_KEYBOARD_HEIGHT_BOUNDARY = dipToPx(100f)
+        BASE_KEYBOARD_HEIGHT_BOUNDARY = dipToPx(100f, context)
         ViewCompat.setOnApplyWindowInsetsListener(
             viewGroup!!
         ) { v, insets -> setWindowInsets(insets) }
@@ -158,4 +158,19 @@ class BaseWindowInsetHelper(viewGroup: ViewGroup?, windowInsetLayout: IBaseWindo
             return child is IBaseWindowInsetLayout
         }
     }
+
+    fun dipToPx(dpValue: Float, context: Context?): Int {
+        return (dpValue *  getAppDensity(context) + 0.5f).toInt()
+    }
+
+    /**
+     * 返回屏幕密度
+     */
+    private fun getAppDensity(context: Context?): Float {
+        return if (context != null && context.resources != null && context.resources.displayMetrics != null) {
+            return context.resources.displayMetrics.density
+        } else
+            return 1f
+    }
+
 }

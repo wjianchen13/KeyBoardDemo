@@ -30,7 +30,7 @@ class BaseWindowInsetLayout @JvmOverloads constructor(
     private val mQMUIWindowInsetHelper: BaseWindowInsetHelper
 
     init {
-        mQMUIWindowInsetHelper = BaseWindowInsetHelper(this, this)
+        mQMUIWindowInsetHelper = BaseWindowInsetHelper(context, this, this)
     }
 
     override fun applySystemWindowInsets21(insets: WindowInsetsCompat): Boolean {
