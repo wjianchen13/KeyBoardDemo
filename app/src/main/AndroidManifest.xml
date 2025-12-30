@@ -66,6 +66,8 @@
         <activity android:name=".test12.TestActivity12"
             android:windowSoftInputMode="adjustResize" />
 
+        <activity android:name=".test13.TestActivity13" />
+
     </application>
 
 </manifest>

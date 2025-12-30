@@ -90,7 +90,7 @@ public class BaseActivity extends AppCompatActivity {
                     // 我们需要考虑这个偏移，确保bottomMargin设置后，根布局的底部位置正确
                     // 由于根布局向上延伸了（通常是状态栏高度），我们需要在设置bottomMargin时
                     // 考虑这个偏移，或者让子视图自己处理
-                    p.bottomMargin = 903;
+                    p.bottomMargin = bottom;
                     v.setLayoutParams(p);
                 }
                 if (-bottom != (int)bottomPadding.getValue()) {

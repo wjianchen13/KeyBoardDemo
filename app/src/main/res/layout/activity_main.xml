@@ -75,7 +75,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:textAllCaps="false"
-        android:text="H5页面软键盘弹出H5上移"
+        android:text="测试适配边到边的情况"
         android:onClick="onTest8" />
 
     <Button
@@ -109,5 +109,13 @@
         android:textAllCaps="false"
         android:text="adjustResize RelativeLayout 测试软键盘弹出情况"
         android:onClick="onTest12" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textAllCaps="false"
+        android:text="测试ConstraintLayout设置bottomMargin的问题"
+        android:onClick="onTest13" />
 
 </LinearLayout>

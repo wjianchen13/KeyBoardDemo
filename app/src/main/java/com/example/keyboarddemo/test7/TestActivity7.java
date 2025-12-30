@@ -38,7 +38,7 @@ import java.util.List;
 /**
  * H5页面软键盘弹出H5上移
  */
-public class TestActivity7 extends BaseActivity implements View.OnClickListener, MyFrameLayout.OnLayoutListener {
+public class TestActivity7 extends AppCompatActivity implements View.OnClickListener, MyFrameLayout.OnLayoutListener {
 
     private EditText edtvTest;
     private RelativeLayout rlytMenu;

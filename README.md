@@ -32,8 +32,13 @@ adjustResize
 由此可以得出结论，设置windowSoftInputMode，根布局不一样，也会导致软键盘弹出布局的表现形式，最明显的就是使用
 ConstraintLayout作为根布局，如果子布局是固定的尺寸，弹出软键盘就不会压缩，使用RelativeLayout，即使子布局是
 固定尺寸，弹出软键盘也会导致布局压缩。
+也就是说，在ConstraintLayout里面，只要弹出软键盘上移的布局是一个固定的尺寸，而不是铺满父布局这种match_parent,
+那弹出软键盘的时候，上移的布局并不会压缩，或者修改尺寸。
 
 
+# 遇到问题
+使用BaseActivity，适配android 15边到边之后，如果根布局添加了android:layout_gravity="center_vertical"，会导致调整
+位置之后，会往上移动一段距离
 
 
 

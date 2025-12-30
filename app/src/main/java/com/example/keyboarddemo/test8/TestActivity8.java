@@ -30,7 +30,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * H5页面软键盘弹出H5上移
+ * 测试适配边到边的情况
+ * 使用BaseActivity，适配android 15边到边之后，如果根布局添加了android:layout_gravity="center_vertical"，会导致调整
+ * 位置之后，会往上移动一段距离
  */
 public class TestActivity8 extends BaseActivity implements View.OnClickListener, MyFrameLayout.OnLayoutListener {
 

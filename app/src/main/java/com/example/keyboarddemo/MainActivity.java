@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.keyboarddemo.test11.TestActivity11;
 import com.example.keyboarddemo.test12.TestActivity12;
+import com.example.keyboarddemo.test13.TestActivity13;
 import com.example.keyboarddemo.test4.TestActivity4;
 import com.example.keyboarddemo.test5.TestActivity5;
 import com.example.keyboarddemo.test6.TestActivity6;
@@ -75,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * H5页面软键盘弹出H5上移
+     * 测试适配边到边的情况
      */
     public void onTest8(View v) {
         startActivity(new Intent(this, TestActivity8.class));
@@ -109,5 +110,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, TestActivity12.class));
     }
 
+    /**
+     * 测试ConstraintLayout设置bottomMargin的问题
+     */
+    public void onTest13(View v) {
+        startActivity(new Intent(this, TestActivity13.class));
+    }
 
 }
