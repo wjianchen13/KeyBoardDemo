@@ -2,29 +2,81 @@ package com.example.keyboarddemo.test13;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.RelativeLayout;
-
-import com.example.keyboarddemo.BaseActivity;
+import android.widget.Button;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.WindowCompat;
 import com.example.keyboarddemo.R;
 
 /**
- * H5页面软键盘弹出H5上移
+ * 演示使用 BaseWindowInsetRelativeLayout 和普通 RelativeLayout 的区别
  */
-public class TestActivity13 extends BaseActivity implements View.OnClickListener{
-
-    private RelativeLayout rlytMenu;
+public class TestActivity13 extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test13);
-        rlytMenu = findViewById(R.id.rlyt_menu);
 
+        // ===================================
+        // 场景切换按钮
+        // ===================================
+        setContentView(R.layout.activity_comparison_selector);
+
+        Button btnNormalMode = findViewById(R.id.btnNormalMode);
+        Button btnEdgeToEdgeWithoutCustom = findViewById(R.id.btnEdgeToEdgeWithoutCustom);
+        Button btnEdgeToEdgeWithCustom = findViewById(R.id.btnEdgeToEdgeWithCustom);
+
+        btnNormalMode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showNormalMode();
+            }
+        });
+
+        btnEdgeToEdgeWithoutCustom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showEdgeToEdgeWithoutCustomLayout();
+            }
+        });
+
+        btnEdgeToEdgeWithCustom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showEdgeToEdgeWithCustomLayout();
+            }
+        });
     }
 
-    @Override
-    public void onClick(View v) {
+    // 场景1: 普通模式（系统自动处理）
+    private void showNormalMode() {
+        // 默认配置，系统自动处理 insets
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), true);  // 这是默认值
+
+        setContentView(R.layout.activity_normal_mode);
+
+        // 结果：使用 RelativeLayout 和 BaseWindowInsetRelativeLayout
+        //      完全没区别！因为系统自动处理了
     }
 
+    // 场景2: 边到边模式 + 普通 RelativeLayout（有问题）
+    private void showEdgeToEdgeWithoutCustomLayout() {
+        // 启用边到边显示
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
+        setContentView(R.layout.activity_edge_to_edge_normal);
+
+        // 结果：内容会延伸到状态栏和导航栏下面
+        //      被系统 UI 遮挡！
+    }
+
+    // 场景3: 边到边模式 + BaseWindowInsetRelativeLayout（正确）
+    private void showEdgeToEdgeWithCustomLayout() {
+        // 启用边到边显示
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+
+        setContentView(R.layout.activity_edge_to_edge_custom);
+
+        // 结果：内容会自动避开状态栏和导航栏
+        //      不会被遮挡！
+    }
 }

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.keyboarddemo.statusbar.BaseWindowInsetRelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="#E8F5E9">
+
+    <!-- ✅ 自动添加了 padding，不会被状态栏遮挡 -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:padding="16dp"
+        android:background="#4CAF50"
+        android:textColor="#FFFFFF"
+        android:text="✅ 正确：自动避开了状态栏！\nBaseWindowInsetRelativeLayout\n自动添加了顶部 padding"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:padding="16dp"
+        android:gravity="center"
+        android:text="场景3: 边到边 + BaseWindowInsetRelativeLayout\n\nsetDecorFitsSystemWindows = false\nfitsSystemWindows = true\n\n内容延伸到状态栏和导航栏下\n但自动添加了 padding\n完美避开系统UI ✅"
+        android:textSize="14sp"
+        android:background="#FFFFFF"/>
+
+    <!-- ✅ 自动添加了 padding，不会被导航栏遮挡 -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="16dp"
+        android:background="#4CAF50"
+        android:textColor="#FFFFFF"
+        android:text="✅ 正确：自动避开了导航栏！"
+        android:textSize="16sp"/>
+
+</com.example.keyboarddemo.statusbar.BaseWindowInsetRelativeLayout>

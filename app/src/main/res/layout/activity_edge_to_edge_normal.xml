@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFEBEE">
+
+    <!-- ❌ 这个会被状态栏遮挡 -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:padding="16dp"
+        android:background="#F44336"
+        android:textColor="#FFFFFF"
+        android:text="❌ 问题：这段文字被状态栏遮挡了！\n因为内容延伸到了状态栏下面\n但没有添加 padding"
+        android:textSize="16sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:padding="16dp"
+        android:gravity="center"
+        android:text="场景2: 边到边 + 普通 RelativeLayout\n\nsetDecorFitsSystemWindows = false\n\n内容延伸到了状态栏和导航栏下\n但没有自动添加 padding\n所以被遮挡了 ❌"
+        android:textSize="14sp"
+        android:background="#FFFFFF"/>
+
+    <!-- ❌ 这个会被导航栏遮挡 -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="16dp"
+        android:background="#F44336"
+        android:textColor="#FFFFFF"
+        android:text="❌ 问题：这段文字被导航栏遮挡了！"
+        android:textSize="16sp"/>
+
+</RelativeLayout>

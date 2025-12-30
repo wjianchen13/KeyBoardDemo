@@ -66,7 +66,17 @@
         <activity android:name=".test12.TestActivity12"
             android:windowSoftInputMode="adjustResize" />
 
-        <activity android:name=".test13.TestActivity13" />
+        <!-- 对比测试 Activity -->
+        <activity
+            android:name=".test13.TestActivity13"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="true" />
+
+        <!-- 详细测试 Activity -->
+        <activity
+            android:name=".test13.DetailedTestActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="false" />
 
     </application>
 
