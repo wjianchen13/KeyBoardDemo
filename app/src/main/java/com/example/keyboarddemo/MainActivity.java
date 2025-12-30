@@ -11,6 +11,7 @@ import com.example.keyboarddemo.test12.TestActivity12;
 import com.example.keyboarddemo.test13.TestActivity13;
 import com.example.keyboarddemo.test14.TestActivity14;
 import com.example.keyboarddemo.test15.TestActivity15;
+import com.example.keyboarddemo.test16.LiveRoomActivity;
 import com.example.keyboarddemo.test4.TestActivity4;
 import com.example.keyboarddemo.test5.TestActivity5;
 import com.example.keyboarddemo.test6.TestActivity6;
@@ -131,6 +132,13 @@ public class MainActivity extends AppCompatActivity {
      */
     public void onTest15(View v) {
         startActivity(new Intent(this, TestActivity15.class));
+    }
+
+    /**
+     * adjustNothing 模式下保持底层界面不往上移动
+     */
+    public void onTest16(View v) {
+        startActivity(new Intent(this, LiveRoomActivity.class));
     }
 
 
