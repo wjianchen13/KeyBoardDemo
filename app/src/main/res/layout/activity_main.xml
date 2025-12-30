@@ -131,6 +131,14 @@
             android:text="测试H5弹出软键盘的情况"
             android:onClick="onTest14" />
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textAllCaps="false"
+            android:text="adjustPan 模式下保持底层界面不往上移动"
+            android:onClick="onTest15" />
+
     </LinearLayout>
 
 </ScrollView>

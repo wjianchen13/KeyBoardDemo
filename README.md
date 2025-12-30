@@ -35,6 +35,19 @@ ConstraintLayout作为根布局，如果子布局是固定的尺寸，弹出软�
 也就是说，在ConstraintLayout里面，只要弹出软键盘上移的布局是一个固定的尺寸，而不是铺满父布局这种match_parent,
 那弹出软键盘的时候，上移的布局并不会压缩，或者修改尺寸。
 
+* H5页面软键盘弹出H5上移
+* 如果不设置initEdgeToEdge和initEdgeToEdgePadding，android:windowSoftInputMode="adjustPan" ，点击H5的输入框
+* 界面是可以整体上移的不压缩的，但是这个时候并没有边到边的效果
+* 如果设置了initEdgeToEdge和initEdgeToEdgePadding，android:windowSoftInputMode="adjustPan"，点击H5输入框
+* 界面上移并且会压缩
+* BaseWindowInsetConstraintLayout 其实就是设置了上下边距，和initEdgeToEdgePadding()要做的事情差不多，都是
+* 根据状态栏和导航栏的尺寸动态设置实际布局的边距
+* 下面的例子实际上BaseWindowInsetConstraintLayout已经生效了，当设置initEdgeToEdge()时，已经是设置了边到边
+* BaseWindowInsetHelper里面的defaultApplySystemWindowInsets21()方法设置了状态栏和导航栏的缩进。所以看到的
+* 效果就是状态栏和导航栏都不会遮挡布局上的内容，然后点击H5上的输入框，界面也可以上移不压缩。
+* 如果不使用BaseWindowInsetConstraintLayout，那么状态栏和导航栏都会遮挡布局内容，然后点击H5的输入框，整体
+* 界面上移，并且不会压缩
+
 
 # 遇到问题
 使用BaseActivity，适配android 15边到边之后，如果根布局添加了android:layout_gravity="center_vertical"，会导致调整

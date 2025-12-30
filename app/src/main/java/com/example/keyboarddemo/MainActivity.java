@@ -10,6 +10,7 @@ import com.example.keyboarddemo.test11.TestActivity11;
 import com.example.keyboarddemo.test12.TestActivity12;
 import com.example.keyboarddemo.test13.TestActivity13;
 import com.example.keyboarddemo.test14.TestActivity14;
+import com.example.keyboarddemo.test15.TestActivity15;
 import com.example.keyboarddemo.test4.TestActivity4;
 import com.example.keyboarddemo.test5.TestActivity5;
 import com.example.keyboarddemo.test6.TestActivity6;
@@ -123,6 +124,13 @@ public class MainActivity extends AppCompatActivity {
      */
     public void onTest14(View v) {
         startActivity(new Intent(this, TestActivity14.class));
+    }
+
+    /**
+     * adjustPan 模式下保持底层界面不往上移动
+     */
+    public void onTest15(View v) {
+        startActivity(new Intent(this, TestActivity15.class));
     }
 
 

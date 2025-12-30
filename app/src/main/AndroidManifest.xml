@@ -81,6 +81,10 @@
         <activity android:name=".test14.TestActivity14"
             android:windowSoftInputMode="adjustPan" />
 
+        <activity android:name=".test15.TestActivity15"
+            android:windowSoftInputMode="adjustPan" />
+
+
     </application>
 
 </manifest>
