@@ -26,15 +26,28 @@
         android:textSize="14sp"
         android:background="#FFFFFF"/>
 
-    <!-- ❌ 这个会被导航栏遮挡 -->
+    <!-- ❌ 这个会被导航栏遮挡，软键盘弹出时也会被遮挡 -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/edtv_input"
         android:padding="16dp"
         android:background="#F44336"
         android:textColor="#FFFFFF"
         android:text="❌ 问题：这段文字被导航栏遮挡了！"
         android:textSize="16sp"/>
+
+    <!-- ❌ EditText会被导航栏遮挡，软键盘弹出时也会遮挡输入框 -->
+    <EditText
+        android:id="@+id/edtv_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:hint="❌ 点击这里输入文字，会被导航栏或软键盘遮挡"
+        android:padding="16dp"
+        android:background="#FFFFFF"
+        android:textSize="16sp"
+        android:minHeight="56dp"
+        android:gravity="center_vertical"/>
 
 </RelativeLayout>

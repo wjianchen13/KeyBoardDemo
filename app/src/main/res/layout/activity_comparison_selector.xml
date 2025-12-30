@@ -26,7 +26,7 @@
         android:id="@+id/btnEdgeToEdgeWithoutCustom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="场景2: 边到边 + 普通布局\n(内容被遮挡 ❌)"
+        android:text="场景2: 边到边 + 普通RelativeLayout\n❌ 内容被状态栏/导航栏遮挡\n❌ 软键盘弹出时EditText被遮挡"
         android:layout_marginBottom="16dp"
         android:backgroundTint="#F44336"/>
 
@@ -34,7 +34,7 @@
         android:id="@+id/btnEdgeToEdgeWithCustom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="场景3: 边到边 + 自定义布局\n(正确避开系统UI ✅)"
+        android:text="场景3: 边到边 + BaseWindowInsetRelativeLayout\n✅ 自动避开状态栏/导航栏\n✅ 软键盘弹出时EditText自动上移"
         android:backgroundTint="#4CAF50"/>
 
 </LinearLayout>

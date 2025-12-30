@@ -39,15 +39,27 @@ class BaseWindowInsetHelper(context: Context?, viewGroup: ViewGroup?, windowInse
         }
         var consumed = false
         var showKeyboard = false
+        
+        // 判断是否为软键盘（bottom >= 100dp）
         if (insets.systemWindowInsetBottom >= BASE_KEYBOARD_HEIGHT_BOUNDARY) {
             showKeyboard = true
-            BaseViewHelper.setBasePaddingBottom(
-                viewGroup,
+            // 软键盘弹出时，给自身设置bottom padding，同时保留top/left/right padding
+            viewGroup.setPadding(
+                insets.systemWindowInsetLeft,
+                insets.systemWindowInsetTop,
+                insets.systemWindowInsetRight,
                 insets.systemWindowInsetBottom
-            ) //insets.getSystemWindowInsetBottom()
+            )
         } else {
-            BaseViewHelper.setBasePaddingBottom(viewGroup, 0)
+            // 没有软键盘时，给自身设置top/left/right/bottom padding来避开系统栏（状态栏、导航栏）
+            viewGroup.setPadding(
+                insets.systemWindowInsetLeft,
+                insets.systemWindowInsetTop,
+                insets.systemWindowInsetRight,
+                insets.systemWindowInsetBottom
+            )
         }
+        
         for (i in 0 until viewGroup.childCount) {
             val child = viewGroup.getChildAt(i)
             if (jumpDispatch(child)) {

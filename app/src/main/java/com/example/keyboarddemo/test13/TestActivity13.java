@@ -65,9 +65,10 @@ public class TestActivity13 extends AppCompatActivity {
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
         setContentView(R.layout.activity_edge_to_edge_normal);
+        ViewCompat.requestApplyInsets(findViewById(android.R.id.content));
 
-        // 结果：内容会延伸到状态栏和导航栏下面
-        //      被系统 UI 遮挡！
+        // 结果：内容会延伸到状态栏和导航栏下面，被系统 UI 遮挡！
+        //      点击底部EditText，软键盘弹出时也会遮挡输入框
     }
 
     // 场景3: 边到边模式 + BaseWindowInsetRelativeLayout（正确）
@@ -77,8 +78,10 @@ public class TestActivity13 extends AppCompatActivity {
 
         setContentView(R.layout.activity_edge_to_edge_custom);
         ViewCompat.requestApplyInsets(findViewById(android.R.id.content));
-        // 结果：内容会自动避开状态栏和导航栏
-        //      不会被遮挡！
+
+        // 结果：内容会自动避开状态栏和导航栏，不会被遮挡！
+        //      点击底部EditText，软键盘弹出时会自动给布局添加paddingBottom
+        //      使EditText自动上移到软键盘上方，不被遮挡
     }
 
 

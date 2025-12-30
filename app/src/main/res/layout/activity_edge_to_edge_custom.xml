@@ -31,11 +31,24 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@+id/edtv_input"
         android:padding="16dp"
         android:background="#4CAF50"
         android:textColor="#FFFFFF"
         android:text="✅ 正确：自动避开了导航栏！"
         android:textSize="16sp"/>
+
+    <!-- ✅ EditText自动避开了导航栏，软键盘弹出时会自动上移 -->
+    <EditText
+        android:id="@+id/edtv_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:hint="✅ 点击这里输入文字，会自动避开导航栏和软键盘"
+        android:padding="16dp"
+        android:background="#FFFFFF"
+        android:textSize="16sp"
+        android:minHeight="56dp"
+        android:gravity="center_vertical"/>
 
 </com.example.keyboarddemo.statusbar.BaseWindowInsetRelativeLayout>
