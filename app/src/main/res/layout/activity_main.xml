@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,115 +7,130 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="软键盘相关使用" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textAllCaps="false"
-        android:text="弹出和收起键盘测试"
-        android:onClick="onTest1" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="软键盘相关使用" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textAllCaps="false"
-        android:text="测试softInputMode"
-        android:onClick="onTest2" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textAllCaps="false"
+            android:text="弹出和收起键盘测试"
+            android:onClick="onTest1" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textAllCaps="false"
-        android:text="测试softInputMode"
-        android:onClick="onTest3" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textAllCaps="false"
+            android:text="测试softInputMode"
+            android:onClick="onTest2" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textAllCaps="false"
-        android:text="EditText顶上去，ImageView保持不动"
-        android:onClick="onTest4" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textAllCaps="false"
+            android:text="测试softInputMode"
+            android:onClick="onTest3" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textAllCaps="false"
-        android:text="模拟项目保持视频层不挤压"
-        android:onClick="onTest5" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textAllCaps="false"
+            android:text="EditText顶上去，ImageView保持不动"
+            android:onClick="onTest4" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textAllCaps="false"
-        android:text="模拟项目软键盘弹出消息列表上移"
-        android:onClick="onTest6" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textAllCaps="false"
+            android:text="模拟项目保持视频层不挤压"
+            android:onClick="onTest5" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textAllCaps="false"
-        android:text="H5页面软键盘弹出H5上移"
-        android:onClick="onTest7" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textAllCaps="false"
+            android:text="模拟项目软键盘弹出消息列表上移"
+            android:onClick="onTest6" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textAllCaps="false"
-        android:text="测试适配边到边的情况"
-        android:onClick="onTest8" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textAllCaps="false"
+            android:text="H5页面软键盘弹出H5上移"
+            android:onClick="onTest7" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textAllCaps="false"
-        android:text="adjustPan ConstraintLayout 测试软键盘弹出情况"
-        android:onClick="onTest9" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textAllCaps="false"
+            android:text="测试适配边到边的情况"
+            android:onClick="onTest8" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textAllCaps="false"
-        android:text="adjustResize ConstraintLayout 测试软键盘弹出情况"
-        android:onClick="onTest10" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textAllCaps="false"
+            android:text="adjustPan ConstraintLayout 测试软键盘弹出情况"
+            android:onClick="onTest9" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textAllCaps="false"
-        android:text="adjustPan RelativeLayout 测试软键盘弹出情况"
-        android:onClick="onTest11" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textAllCaps="false"
+            android:text="adjustResize ConstraintLayout 测试软键盘弹出情况"
+            android:onClick="onTest10" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textAllCaps="false"
-        android:text="adjustResize RelativeLayout 测试软键盘弹出情况"
-        android:onClick="onTest12" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textAllCaps="false"
+            android:text="adjustPan RelativeLayout 测试软键盘弹出情况"
+            android:onClick="onTest11" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textAllCaps="false"
-        android:text="测试ConstraintLayout设置bottomMargin的问题"
-        android:onClick="onTest13" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textAllCaps="false"
+            android:text="adjustResize RelativeLayout 测试软键盘弹出情况"
+            android:onClick="onTest12" />
 
-</LinearLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textAllCaps="false"
+            android:text="演示使用 BaseWindowInsetRelativeLayout 和普通 RelativeLayout 的区别"
+            android:onClick="onTest13" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textAllCaps="false"
+            android:text="测试H5弹出软键盘的情况"
+            android:onClick="onTest14" />
+
+    </LinearLayout>
+
+</ScrollView>

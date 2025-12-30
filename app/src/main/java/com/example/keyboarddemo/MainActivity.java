@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.keyboarddemo.test11.TestActivity11;
 import com.example.keyboarddemo.test12.TestActivity12;
 import com.example.keyboarddemo.test13.TestActivity13;
+import com.example.keyboarddemo.test14.TestActivity14;
 import com.example.keyboarddemo.test4.TestActivity4;
 import com.example.keyboarddemo.test5.TestActivity5;
 import com.example.keyboarddemo.test6.TestActivity6;
@@ -116,5 +117,13 @@ public class MainActivity extends AppCompatActivity {
     public void onTest13(View v) {
         startActivity(new Intent(this, TestActivity13.class));
     }
+
+    /**
+     * 测试ConstraintLayout设置bottomMargin的问题
+     */
+    public void onTest14(View v) {
+        startActivity(new Intent(this, TestActivity14.class));
+    }
+
 
 }
