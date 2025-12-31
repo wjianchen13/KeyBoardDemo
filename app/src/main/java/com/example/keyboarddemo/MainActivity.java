@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * adjustPan 模式下保持底层界面不往上移动
+     * adjustPan 模式下保持底层界面不往上移动, 测试之后发现不好实现，失败
      */
     public void onTest15(View v) {
         startActivity(new Intent(this, TestActivity15.class));

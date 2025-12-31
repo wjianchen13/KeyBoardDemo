@@ -1,38 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/myviewgroup"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_gravity="center_vertical"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
-    <com.example.keyboarddemo.test15.MyRelativeLayout15
-        android:id="@+id/myrelativelayout15"
+    <!-- 第1层：视频层 -->
+    <FrameLayout
+        android:id="@+id/videoLayer"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/iv"
-            android:src="@drawable/ic_test"
-            android:background="#ff00ff00"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:scaleType="fitXY"
+        <View
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="#000000"/>
 
-    </com.example.keyboarddemo.test15.MyRelativeLayout15>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="视频播放区域"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"/>
 
+    </FrameLayout>
 
-    <EditText
-        android:hint="输入框2"
-        android:id="@+id/et2"
-        android:background="#ff0000"
-        android:layout_alignParentBottom="true"
-        android:layout_marginHorizontal="10dp"
+    <!-- 第2层：信息层 -->
+    <LinearLayout
+        android:id="@+id/infoLayer"
         android:layout_width="match_parent"
-        android:layout_height="40dp">
-    </EditText>
-</RelativeLayout>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- 主播信息 -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#80000000"
+            android:padding="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="主播: 测试主播"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+
+        <!-- 公聊区域 -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="8dp"
+            android:background="#40000000"
+            android:padding="8dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="用户A: 主播好厉害！"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="4dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="用户B: 666"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="4dp"/>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+    <!-- 第3层：底部菜单 -->
+    <LinearLayout
+        android:id="@+id/menuLayer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:background="#80000000">
+
+        <Button
+            android:id="@+id/btnMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="💬 消息"
+            android:textSize="14sp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🎁 礼物"
+            android:textSize="14sp"
+            android:layout_marginStart="8dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="❤️ 关注"
+            android:textSize="14sp"
+            android:layout_marginStart="8dp"/>
+
+    </LinearLayout>
+
+    <!-- 第4层：输入框（默认隐藏） -->
+    <LinearLayout
+        android:id="@+id/inputContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:background="#FFFFFF"
+        android:visibility="gone"
+        android:elevation="8dp">
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="说点什么..."
+            android:background="@android:drawable/edit_text"
+            android:padding="12dp"
+            android:maxLines="3"/>
+
+        <Button
+            android:id="@+id/btnSend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="发送"
+            android:layout_marginStart="8dp"/>
+
+    </LinearLayout>
+
+</FrameLayout>

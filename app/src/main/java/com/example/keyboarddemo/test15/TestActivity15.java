@@ -1,143 +1,122 @@
 package com.example.keyboarddemo.test15;
 
+import android.animation.ValueAnimator;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.widget.Button;
 import android.widget.EditText;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.keyboarddemo.R;
-import com.example.keyboarddemo.utils.SoftInputUtils;
 
 /**
- * adjustPan 模式下保持底层界面不往上移动
- * 
- * 在 Activity 层面监听软键盘状态，然后对 MyRelativeLayout15 应用 TranslationY 来固定位置
+ * adjustPan 模式下保持底层界面不往上移动, 测试之后发现不好实现，失败
  */
 public class TestActivity15 extends AppCompatActivity {
 
-    private EditText edtvTest;
-    private MyRelativeLayout15 myRelativeLayout15;
-    private Runnable positionFixRunnable;
-    private boolean isRunning = false;
-    private int[] initialParentScreenLocation = new int[2];
-    private boolean isInitialized = false;
+    private View videoLayer;
+    private View infoLayer;
+    private View rootView;
+    private EditText editText;
+
+    private int screenHeight;
+    private ValueAnimator currentAnimator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test15);
-        edtvTest = findViewById(R.id.edtv_test);
-        
-        // 查找 MyRelativeLayout15
-        myRelativeLayout15 = findViewById(R.id.myrelativelayout15);
-        
-        if (myRelativeLayout15 != null) {
-            initSoftInputListener();
-        }
-    }
 
-    /**
-     * 初始化软键盘监听，用于固定 MyRelativeLayout15 的位置
-     */
-    private void initSoftInputListener() {
-        if (myRelativeLayout15 == null) {
-            return;
-        }
-        
-        final View rootView = getWindow().getDecorView();
-        if (rootView == null) {
-            return;
-        }
-        
-        // 延迟初始化，记录初始位置
-        rootView.post(new Runnable() {
-            @Override
-            public void run() {
-                View parent = (View) myRelativeLayout15.getParent();
-                if (parent != null) {
-                    parent.getLocationOnScreen(initialParentScreenLocation);
-                    isInitialized = true;
-                    // 初始化完成后启动持续检查
-                    startPositionFix();
-                }
-            }
+        videoLayer = findViewById(R.id.videoLayer);
+        infoLayer = findViewById(R.id.infoLayer);
+        rootView = findViewById(android.R.id.content);
+        editText = findViewById(R.id.editText);
+        Button btnMessage = findViewById(R.id.btnMessage);
+
+        screenHeight = getResources().getDisplayMetrics().heightPixels;
+
+        btnMessage.setOnClickListener(v -> {
+            findViewById(R.id.inputContainer).setVisibility(View.VISIBLE);
+            editText.requestFocus();
+            showKeyboard();
         });
+
+        setupLayoutListener();
+    }
+
+    private void showKeyboard() {
+        editText.postDelayed(() -> {
+            android.view.inputmethod.InputMethodManager imm =
+                    (android.view.inputmethod.InputMethodManager)
+                            getSystemService(INPUT_METHOD_SERVICE);
+            imm.showSoftInput(editText, 0);
+        }, 100);
+    }
+
+    private void setupLayoutListener() {
+        rootView.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        Rect rect = new Rect();
+                        rootView.getWindowVisibleDisplayFrame(rect);
+
+                        int visibleHeight = rect.bottom - rect.top;
+                        int heightDiff = screenHeight - visibleHeight;
+
+                        if (heightDiff > 200) {
+                            int compensateAmount = calculateCompensateAmount(heightDiff);
+                            animateCompensation(compensateAmount);
+                        } else {
+                            animateCompensation(0);
+                        }
+                    }
+                });
     }
 
     /**
-     * 启动持续检查位置的 Runnable
+     * 使用动画平滑过渡
      */
-    private void startPositionFix() {
-        if (isRunning || !isInitialized || myRelativeLayout15 == null) {
-            return;
+    private void animateCompensation(int targetMargin) {
+        if (currentAnimator != null && currentAnimator.isRunning()) {
+            currentAnimator.cancel();
         }
-        
-        isRunning = true;
-        final View rootView = getWindow().getDecorView();
-        if (rootView == null) {
-            isRunning = false;
-            return;
-        }
-        
-        positionFixRunnable = new Runnable() {
-            @Override
-            public void run() {
-                if (!isInitialized || !isRunning || myRelativeLayout15 == null) {
-                    return;
-                }
-                
-                View parent = (View) myRelativeLayout15.getParent();
-                if (parent == null) {
-                    return;
-                }
-                
-                // 检查父容器的屏幕坐标是否改变
-                int[] currentParentScreenLocation = new int[2];
-                parent.getLocationOnScreen(currentParentScreenLocation);
-                int parentScreenYOffset = currentParentScreenLocation[1] - initialParentScreenLocation[1];
-                
-                // 如果父容器移动了，使用 TranslationY 来抵消
-                if (parentScreenYOffset != 0) {
-                    myRelativeLayout15.setTranslationY(-parentScreenYOffset);
-                } else {
-                    myRelativeLayout15.setTranslationY(0);
-                }
-                
-                // 每4ms检查一次（约250fps，非常频繁）
-                rootView.postDelayed(this, 4);
-            }
-        };
-        
-        rootView.post(positionFixRunnable);
+
+        ViewGroup.MarginLayoutParams videoParams =
+                (ViewGroup.MarginLayoutParams) videoLayer.getLayoutParams();
+        int currentMargin = videoParams.topMargin;
+
+        currentAnimator = ValueAnimator.ofInt(currentMargin, targetMargin);
+        currentAnimator.setDuration(250); // 250ms 动画
+        currentAnimator.addUpdateListener(animation -> {
+            int animatedValue = (int) animation.getAnimatedValue();
+
+            // 更新视频层
+            ViewGroup.MarginLayoutParams vParams =
+                    (ViewGroup.MarginLayoutParams) videoLayer.getLayoutParams();
+            vParams.topMargin = animatedValue;
+            videoLayer.setLayoutParams(vParams);
+
+            // 更新信息层
+            ViewGroup.MarginLayoutParams iParams =
+                    (ViewGroup.MarginLayoutParams) infoLayer.getLayoutParams();
+            iParams.topMargin = animatedValue;
+            infoLayer.setLayoutParams(iParams);
+        });
+        currentAnimator.start();
     }
 
-    /**
-     * 停止持续检查
-     */
-    private void stopPositionFix() {
-        isRunning = false;
-        if (positionFixRunnable != null) {
-            View rootView = getWindow().getDecorView();
-            if (rootView != null) {
-                rootView.removeCallbacks(positionFixRunnable);
-            }
-            positionFixRunnable = null;
-        }
-    }
+    private int calculateCompensateAmount(int keyboardHeight) {
+        int[] location = new int[2];
+        editText.getLocationOnScreen(location);
+        int editTextTop = location[1];
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        stopPositionFix();
-    }
+        int visibleHeight = screenHeight - keyboardHeight;
+        int needMoveUp = editTextTop + editText.getHeight() - visibleHeight;
 
-    public void onTest1(View v) {
-        SoftInputUtils.showSoftInput(edtvTest);
+        return needMoveUp > 0 ? (int)(needMoveUp * 0.6f) : 0;
     }
-
-    public void onTest2(View v) {
-        SoftInputUtils.hideSoftInput(edtvTest);
-    }
-
 }
