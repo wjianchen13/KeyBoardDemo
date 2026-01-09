@@ -48,6 +48,16 @@ ConstraintLayout作为根布局，如果子布局是固定的尺寸，弹出软�
 * 如果不使用BaseWindowInsetConstraintLayout，那么状态栏和导航栏都会遮挡布局内容，然后点击H5的输入框，整体
 * 界面上移，并且不会压缩
 
+BaseWindowInsetRelativeLayout的作用
+20260109 
+当Activity开启了边到边enableEdgeToEdge()，android:windowSoftInputMode="adjustResize"，并且没有设置下面的
+代码：ViewCompat.setOnApplyWindowInsetsListener()，这时候界面上EditText点击弹出软键盘时，界面并不会压缩，
+EditText也不会往上移动，也就是说当开启边到边时，adjustResize会失去作用。这个时候如果根布局套一个BaseWindowInsetRelativeLayout
+界面就会压缩。
+但是当设置了ViewCompat.setOnApplyWindowInsetsListener()时，BaseWindowInsetRelativeLayout会失去作用，他会以
+ViewCompat.setOnApplyWindowInsetsListener()设置的监听器为准。
+
+
 
 # 遇到问题
 使用BaseActivity，适配android 15边到边之后，如果根布局添加了android:layout_gravity="center_vertical"，会导致调整
