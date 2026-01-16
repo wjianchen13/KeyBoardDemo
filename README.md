@@ -57,6 +57,22 @@ EditText也不会往上移动，也就是说当开启边到边时，adjustResize
 但是当设置了ViewCompat.setOnApplyWindowInsetsListener()时，BaseWindowInsetRelativeLayout会失去作用，他会以
 ViewCompat.setOnApplyWindowInsetsListener()设置的监听器为准。
 
+房间之所以能够弹出软键盘，全部都是依靠项目中AbstractCommonActivity下的设置了：
+v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+//leftMargin = insets.left
+//            bottomMargin = bottom
+//rightMargin = insets.right
+}
+当软键盘关闭时，底部边距距离导航栏高度的值，如果弹出软键盘，就是距离软键盘高度值。设置了边到边，也就是沉浸式就会
+这样，如果没有设置边到边或者沉浸式，adjustResize会起作用，当软键盘弹出时，会自动推起软键盘。如果设置了边到边或者
+沉浸式，adjustResize就会失效，当软键盘弹出时，软键盘会遮挡背后的输入框，系统并不会自动推起软键盘。
+
+房间设置了ViewCompat.setOnApplyWindowInsetsListener()底部界面不会压缩，是因为根布局使用了BaseWindowInsetConstraintLayout
+如果是其他界面，没有使用BaseWindowInsetConstraintLayout，但是因为设置了ViewCompat.setOnApplyWindowInsetsListener()，所以会压缩
+所以普通界面处理软键盘弹出的时候，重写掉updateView()，在这里重新实现自己的逻辑，例如大厅，背景在状态栏后面，就设置成0
+如果是在状态栏上面，就设置状态栏的高度。
+
+
 
 
 # 遇到问题
